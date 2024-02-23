@@ -7,3 +7,27 @@
     font-family: 'Poppins', system-ui, sans-serif;
   }
 }
+
+@layer components {
+  .tech {
+    @apply flex gap-2 before:content-[''] before:bg-gray-400 before:w-4 before:h-4 before:flex before:rounded-full;
+  }
+  .tech[datatype='JavaScript'] {
+    @apply before:bg-tech-js;
+  }
+  .tech[datatype='TypeScript'] {
+    @apply before:bg-tech-ts;
+  }
+  .tech[datatype='HTML'] {
+    @apply before:bg-tech-html;
+  }
+  .tech[datatype='CSS'] {
+    @apply before:bg-tech-css;
+  }
+  .tech[datatype='Java'] {
+    @apply before:bg-tech-java;
+  }
+  .tech[datatype='Go'] {
+    @apply before:bg-tech-go;
+  }
+}
