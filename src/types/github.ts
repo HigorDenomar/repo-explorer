@@ -13,3 +13,15 @@ export type User = {
   created_at: string
   updated_at: string
 }
+
+export type Repository = {
+  id: number
+  name: string
+  full_name: string
+  description?: string
+  language?: string
+  owner: User
+  html_url: string
+  created_at: string
+  updated_at: string
+}
