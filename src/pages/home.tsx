@@ -1,13 +1,14 @@
 import findUserImg from '../assets/find-user.svg'
 import { UserNotFound } from '../components/user-not-found'
-import type { User } from '../types/github'
+import { useSearchStore } from '../store/search'
+import { useUserStore } from '../store/user'
 
 export function Home() {
-  const search = 'MHshdahsudl'
-  const user = {} as User
+  const { username } = useSearchStore()
+  const { user } = useUserStore()
 
-  if (search && !user?.id) {
-    return <UserNotFound term={search} />
+  if (username && !user?.id) {
+    return <UserNotFound term={username} />
   }
 
   return (
