@@ -1,12 +1,29 @@
-import type { FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { HiOutlineHeart } from 'react-icons/hi';
 import { IoSearch } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { UserService } from '../services/user.service';
+import { useSearchStore } from '../store/search';
+import { useUserStore } from '../store/user';
 
 export function Header() {
-  function handleSearch(event: FormEvent) {
+  const [search, setSearch] = useState('')
+  const navigate = useNavigate()
+
+  async function handleSearch(event: FormEvent) {
     event.preventDefault()
+    useSearchStore.setState({ username: search })
+
+    try {
+      const { data } = await UserService.get(search)
+      useUserStore.setState({ user: data })
+      navigate(search)
+    } catch (error) {
+      useUserStore.setState({ user: undefined })
+    }
   }
+
   return (
     <header className='flex justify-between min-h-20 border-b'>
       <form onSubmit={handleSearch} className='flex border rounded my-5 mx-6 h-10 w-full max-w-2xl'>
@@ -14,6 +31,8 @@ export function Header() {
           type="text"
           placeholder='Buscar usuário'
           className='w-full h-full text-sm pl-4 rounded placeholder:text-gray-500'
+          value={search}
+          onChange={event => setSearch(event.target.value)}
         />
 
         <button type='submit' className='px-3'>
