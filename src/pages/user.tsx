@@ -28,7 +28,7 @@ export function UserPage() {
 
   return (
     <main className={cls([
-      'p-4 min-h-svh text-gray-600',
+      'p-4 pt-6 min-h-svh text-gray-600',
       'md:grid md:grid-cols-[minmax(280px,448px)_minmax(300px,1fr)] md:gap-x-12',
     ])}>
       <aside className='flex flex-col items-center text-center h-max col-span-1 border rounded gap-6 px-8 py-10 text-gray-700 text-sm'>
