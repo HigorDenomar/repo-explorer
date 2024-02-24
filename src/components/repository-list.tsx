@@ -5,7 +5,7 @@ import { useUserStore } from '../store/user';
 import { RepositoryCard } from './repository-card';
 
 export function RepositoryList() {
-  const { repositories, addRepositories } = useRepositoryStore()
+  const { repositories } = useRepositoryStore()
   const { user } = useUserStore()
 
   useEffect(() => {
@@ -17,14 +17,14 @@ export function RepositoryList() {
 
         if (!data?.length) return
 
-        addRepositories(data ?? [])
+        useRepositoryStore.setState({ repositories: data ?? [] })
       } catch (error) {
         console.error(error)
       }
     }
 
-    if (!repositories?.length) getRepos()
-  }, [user?.id])
+    getRepos()
+  }, [user?.name])
 
   if (!repositories?.length) return null
 
