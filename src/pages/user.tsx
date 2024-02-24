@@ -21,11 +21,13 @@ export function UserPage() {
       return data
     },
     onSuccess(data) {
-      useUserStore.setState({ user: data, isLoading: false })
+      useUserStore.setState({ user: data })
     },
     onError() {
-      useUserStore.setState({ isLoading: false })
       navigate('/')
+    },
+    onSettled() {
+      useUserStore.setState({ isLoading: false })
     },
     enabled: !!username,
     retry: false,
