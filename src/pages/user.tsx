@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { RepositoryList } from '../components/repository-list';
 import { UserSkeleton } from '../components/skeletons/user-skeleton';
@@ -8,22 +9,34 @@ import { UserService } from '../services/user.service';
 import { useUserStore } from '../store/user';
 
 export function UserPage() {
+  const navigate = useNavigate()
   const { username } = useParams<{ username: string }>()
 
   const { user } = useUserStore()
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const { data } = await UserService.get(username ?? '')
-        useUserStore.setState({ user: data })
-      } catch (error) {
-        console.error(error)
-      }
-    }
+  const { isRefetching } = useQuery({
+    queryKey: ['user', username],
+    queryFn: async () => {
+      const { data } = await UserService.get(username as string)
+      return data
+    },
+    onSuccess(data) {
+      useUserStore.setState({ user: data, isLoading: false })
+    },
+    onError() {
+      useUserStore.setState({ isLoading: false })
+      navigate('/')
+    },
+    enabled: !!username,
+    retry: false,
+    refetchOnWindowFocus: false,
+  })
 
-    if (!user?.id && username) getUser()
-  }, [username])
+  useEffect(() => {
+    useUserStore.setState({
+      isLoading: !isRefetching
+    })
+  }, [])
 
   return (
     <main className={cls([
@@ -32,8 +45,6 @@ export function UserPage() {
     ])}>
       {user?.id ? (
         <aside className='flex flex-col items-center text-center h-max col-span-1 border rounded gap-6 px-8 py-10 text-gray-700 text-sm'>
-
-
           <img
             src={user.avatar_url}
             alt={`Imagem de perfil de ${user.login}`}
