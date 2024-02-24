@@ -21,6 +21,7 @@ export function Header() {
       navigate(`/user/${search}`)
     } catch (error) {
       useUserStore.setState({ user: undefined })
+      navigate('/')
     }
   }
 
