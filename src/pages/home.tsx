@@ -3,7 +3,7 @@ import { UserNotFound } from '../components/user-not-found'
 import { useSearchStore } from '../store/search'
 import { useUserStore } from '../store/user'
 
-export function Home() {
+export function HomePage() {
   const { username } = useSearchStore()
   const { user } = useUserStore()
 
