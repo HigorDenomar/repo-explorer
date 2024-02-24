@@ -3,6 +3,7 @@ import { RepositoryService } from '../services/repository.service';
 import { useRepositoryStore } from '../store/repository';
 import { useUserStore } from '../store/user';
 import { RepositoryCard } from './repository-card';
+import { RepositoryListSkeleton } from './skeletons/repository-list-skeleton';
 
 export function RepositoryList() {
   const { repositories } = useRepositoryStore()
@@ -26,7 +27,9 @@ export function RepositoryList() {
     getRepos()
   }, [user?.name])
 
-  if (!repositories?.length) return null
+  if (!repositories?.length) {
+    return <RepositoryListSkeleton />
+  }
 
   return (
     <article className='col-span-1 w-full mt-10 md:mt-0'>
