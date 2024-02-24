@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useQuery } from 'react-query';
+
 import { RepositoryService } from '../services/repository.service';
 import { useRepositoryStore } from '../store/repository';
 import { useUserStore } from '../store/user';
@@ -9,25 +10,19 @@ export function RepositoryList() {
   const { repositories } = useRepositoryStore()
   const { user } = useUserStore()
 
-  useEffect(() => {
-    async function getRepos() {
-      try {
-        if (!user?.id) return
+  const { isLoading } = useQuery({
+    queryKey: ['repositories', user?.login],
+    queryFn: async () => {
+      const { data } = await RepositoryService.get(user?.login as string)
+      return data
+    },
+    onSuccess(data) {
+      useRepositoryStore.setState({ repositories: data ?? [] })
+    },
+    enabled: !!user?.login,
+  })
 
-        const { data } = await RepositoryService.get(user?.login)
-
-        if (!data?.length) return
-
-        useRepositoryStore.setState({ repositories: data ?? [] })
-      } catch (error) {
-        console.error(error)
-      }
-    }
-
-    getRepos()
-  }, [user?.name])
-
-  if (!repositories?.length) {
+  if (isLoading || !user?.id) {
     return <RepositoryListSkeleton />
   }
 
