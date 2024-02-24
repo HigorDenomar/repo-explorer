@@ -18,7 +18,7 @@ export function Header() {
     try {
       const { data } = await UserService.get(search)
       useUserStore.setState({ user: data })
-      navigate(search)
+      navigate(`/user/${search}`)
     } catch (error) {
       useUserStore.setState({ user: undefined })
     }
