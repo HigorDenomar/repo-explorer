@@ -13,10 +13,9 @@ export function RepositoryList() {
   const {
     data,
     isLoading,
-    isFetched,
     isFetching,
     hasNextPage,
-    fetchNextPage
+    fetchNextPage,
   } = useInfiniteQuery({
     queryKey: ['repositories', user?.login],
     queryFn: async ({ pageParam }) => {
@@ -37,7 +36,7 @@ export function RepositoryList() {
     return data?.pages.reduce((acc, page) => [...acc, ...page], [])
   }, [data])
 
-  if ((isLoading && isFetched) || !user?.id) {
+  if (isLoading || !user?.id) {
     return <RepositoryListSkeleton />
   }
 
