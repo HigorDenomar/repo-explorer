@@ -5,9 +5,11 @@ export function cls(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-// Updated on 16 Jul 2020
 export function formatDate(date: string) {
-  return new Date(date)
+  const newDate = new Date(date)
+  newDate.setDate(newDate.getDate() + 1)
+
+  return new Date(newDate)
     .toLocaleDateString('pt-BR', {
       dateStyle: 'medium',
     })
