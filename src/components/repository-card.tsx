@@ -58,6 +58,8 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
           'border-primary text-primary bg-transparent': isFavorite
         })}
         onClick={handleToFavoriteRepository}
+        aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+        test-id='favorite-button'
       >
         <HiOutlineHeart
           size={18}
