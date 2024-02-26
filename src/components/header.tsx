@@ -34,7 +34,7 @@ export function Header() {
           disabled={isLoading}
         />
 
-        <button type='submit' className='px-3 text-gray-500' disabled={!search || isLoading}>
+        <button type='submit' aria-label='Buscar' className='px-3 text-gray-500' disabled={!search || isLoading}>
           {isLoading ? (
             <ImSpinner2 size={20} className='animate-spin' />
           ) : (
