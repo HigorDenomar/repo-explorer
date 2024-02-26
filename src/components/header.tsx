@@ -23,7 +23,7 @@ export function Header() {
   }
 
   return (
-    <header className='flex justify-between min-h-20 border-b'>
+    <header className='sticky inset-0 z-10 bg-white flex justify-between min-h-20 border-b'>
       <form onSubmit={handleSearch} className='flex border rounded my-5 mx-6 h-10 w-full max-w-2xl'>
         <input
           type="text"
