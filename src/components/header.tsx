@@ -16,7 +16,7 @@ export function Header() {
     event.preventDefault()
     if (!search) return
 
-    useSearchStore.setState({ username: search })
+    useSearchStore.setState({ search })
     useUserStore.setState({ user: undefined })
 
     navigate(`/user/${search}`)

@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 
 type StoreProps = {
-  username: string
+  search: string
 }
 
 export const useSearchStore = create<StoreProps>(() => ({
-  username: '',
+  search: '',
 }))

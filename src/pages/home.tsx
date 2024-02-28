@@ -4,11 +4,11 @@ import { useSearchStore } from '../store/search'
 import { useUserStore } from '../store/user'
 
 export function HomePage() {
-  const { username } = useSearchStore()
+  const { search } = useSearchStore()
   const { user } = useUserStore()
 
-  if (username && !user?.id) {
-    return <UserNotFound term={username} />
+  if (search && !user?.id) {
+    return <UserNotFound term={search} />
   }
 
   return (
