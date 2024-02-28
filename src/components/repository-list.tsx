@@ -1,7 +1,4 @@
-import { useInfiniteQuery } from 'react-query';
-
-import { useMemo } from 'react';
-import { RepositoryService } from '../services/repository.service';
+import { UseRepositoryQuery } from '../hooks/useRepositoryQuery';
 import { useUserStore } from '../store/user';
 import { InfiniteScroll } from './infinite-scroll';
 import { RepositoryCard } from './repository-card';
@@ -11,37 +8,19 @@ export function RepositoryList() {
   const { user } = useUserStore()
 
   const {
-    data,
+    data: repositories,
     isLoading,
-    isFetching,
     hasNextPage,
     fetchNextPage,
-  } = useInfiniteQuery({
-    queryKey: ['repositories', user?.login],
-    queryFn: async ({ pageParam }) => {
-      const { data } = await RepositoryService.get({
-        username: user?.login as string,
-        page: pageParam
-      })
-      return data
-    },
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length ? allPages.length + 1 : undefined
-    },
-    enabled: !!user?.login,
-    refetchOnWindowFocus: false
-  })
-
-  const repositories = useMemo(() => {
-    return data?.pages.reduce((acc, page) => [...acc, ...page], [])
-  }, [data])
+    isFetching,
+  } = UseRepositoryQuery()
 
   if (isLoading || !user?.id) {
     return <RepositoryListSkeleton />
   }
 
   return (
-    <article className='col-span-1 w-full mt-10 md:mt-0'>
+    <article className='col-span-1 w-full mt-10 md:mt-0' data-testid='repository-list'>
       <h2 className='text-primary font-semibold text-xl mb-4 text-center md:text-start'>Repositórios</h2>
 
       <InfiniteScroll
