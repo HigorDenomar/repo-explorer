@@ -44,7 +44,7 @@ describe('RepositoryCard', () => {
   })
 
   it('should be able to add the repository to favorites', () => {
-    const button = screen.getByRole('button')
+    const button = screen.getByTestId('favorite-button')
 
     expect(button).toBeInTheDocument()
     expect(button).toHaveAttribute('aria-label', "Adicionar aos favoritos")
@@ -55,7 +55,7 @@ describe('RepositoryCard', () => {
   })
 
   it('should be able to remove the repository to favorites', () => {
-    const button = screen.getByRole('button')
+    const button = screen.getByTestId('favorite-button')
 
     expect(button).toHaveAttribute('aria-label', "Remover dos favoritos")
     fireEvent.click(button)

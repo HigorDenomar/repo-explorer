@@ -59,7 +59,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
         })}
         onClick={handleToFavoriteRepository}
         aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-        test-id='favorite-button'
+        data-testid='favorite-button'
       >
         <HiOutlineHeart
           size={18}
