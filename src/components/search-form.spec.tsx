@@ -1,6 +1,5 @@
 import '@testing-library/jest-dom';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SearchForm } from './search-form';
@@ -15,41 +14,28 @@ vi.mock("react-router-dom", async (importOriginal) => {
   }
 })
 
+vi.mock("react-query", async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual as Record<string, unknown>,
+    useQuery: () => ({})
+  }
+})
+
 describe('SearchForm', () => {
   beforeEach(() => {
-    render(<SearchForm />, { wrapper: BrowserRouter })
+    render(<SearchForm />)
   })
 
   it('should render the input search', () => {
-    const input = screen.getByPlaceholderText(/buscar usuário/i)
+    const input = screen.getByTestId('search-input')
 
     expect(input).toBeInTheDocument()
   })
 
-  it('should render the submit button search', () => {
-    const button = screen.getByLabelText(/buscar/i)
+  it('should render the search icon', () => {
+    const icon = screen.getByLabelText(/search-icon/i)
 
-    expect(button).toBeInTheDocument()
-    expect(button).toBeDisabled()
-  })
-
-  it('should be able to search when the input is populated', () => {
-
-    const input = screen.getByPlaceholderText(/buscar usuário/i)
-    const button = screen.getByLabelText(/buscar/i)
-
-    fireEvent.change(input, { target: { value: 'username' } })
-
-    expect(button).not.toBeDisabled()
-  })
-
-  it('should be redirect to the user page', () => {
-    const input = screen.getByPlaceholderText(/buscar usuário/i)
-    const button = screen.getByLabelText(/buscar/i)
-
-    fireEvent.change(input, { target: { value: 'username' } })
-    fireEvent.click(button)
-
-    expect(navigate).toHaveBeenCalledWith('/user/username')
+    expect(icon).toBeInTheDocument()
   })
 })

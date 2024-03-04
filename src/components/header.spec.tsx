@@ -1,9 +1,19 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { BrowserRouter } from 'react-router-dom'
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { Header } from './header'
+
+
+vi.mock("react-query", async (importOriginal) => {
+  const actual = await importOriginal()
+  return {
+    ...actual as Record<string, unknown>,
+
+    useQuery: () => ({})
+  }
+})
 
 describe('Header', () => {
   beforeEach(() => {
@@ -11,7 +21,7 @@ describe('Header', () => {
   })
 
   it('should render the search form', () => {
-    expect(screen.getByTestId('search-form')).toBeInTheDocument()
+    expect(screen.getByTestId('search-input')).toBeInTheDocument()
   })
 
   it('should render the favorite link', () => {
