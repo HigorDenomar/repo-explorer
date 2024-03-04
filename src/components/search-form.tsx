@@ -1,48 +1,63 @@
-import { useState, type FormEvent } from 'react'
-import { ImSpinner2 } from 'react-icons/im'
-import { IoSearch } from 'react-icons/io5'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { ImSpinner2 } from 'react-icons/im'
+import { IoSearch } from 'react-icons/io5'
+import { useListUsers } from '../hooks/useListUsers'
 import { useSearchStore } from '../store/search'
 import { useUserStore } from '../store/user'
+import { InputSearch } from './input-search'
 
 export function SearchForm() {
+  const [isInputOpen, setInputOpen] = useState(false)
   const [search, setSearch] = useState('')
   const navigate = useNavigate()
   const { isLoading } = useUserStore()
 
-  async function handleSearch(event: FormEvent) {
-    event.preventDefault()
-    if (!search) return
+  const { data, isFetching } = useListUsers({ search })
+  const users = data?.map((user) => user.login.toLowerCase())
 
-    useSearchStore.setState({ search })
+  function handleToSelect(value: string) {
+    if (!value) return
+
+    setInputOpen(false)
+    setSearch(value)
+
+    useSearchStore.setState({ search: value })
     useUserStore.setState({ user: undefined })
 
-    navigate(`/user/${search}`)
+    navigate(`/user/${value}`)
   }
 
   return (
-    <form
-      onSubmit={handleSearch}
-      className='flex border rounded my-5 mx-6 h-10 w-full max-w-2xl'
-      data-testid='search-form'
-    >
-      <input
-        type="text"
-        placeholder={isLoading ? 'Buscando...' : 'Buscar usuário'}
-        className='w-full h-full text-sm pl-4 rounded placeholder:text-gray-500'
-        value={search}
-        onChange={event => setSearch(event.target.value)}
-        disabled={isLoading}
-      />
+    <>
+      <div onClick={() => setInputOpen(true)} className="flex items-center border cursor-text rounded px-4 my-5 mx-6 h-10 w-full max-w-2xl">
+        <p className='text-gray-500 text-sm mr-auto'>
+          {search ? search : (isLoading || isFetching) ? 'Buscando...' : 'Buscar usuário'}
+        </p>
 
-      <button type='submit' aria-label='Buscar' className='px-3 text-gray-500' disabled={!search || isLoading}>
-        {isLoading ? (
-          <ImSpinner2 size={20} className='animate-spin' />
-        ) : (
-          <IoSearch size={24} strokeWidth={20} />
-        )}
-      </button>
-    </form>
+        <kbd className="pointer-events-none ml-1 inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+
+        <div aria-label='Buscar' className='pl-3 text-gray-500'>
+          {isFetching ? (
+            <ImSpinner2 size={20} className='animate-spin' />
+          ) : (
+            <IoSearch size={24} strokeWidth={20} />
+          )}
+        </div>
+      </div>
+
+      <InputSearch
+        value={search}
+        onChange={setSearch}
+        onSelect={handleToSelect}
+        options={users}
+        open={isInputOpen}
+        setOpen={setInputOpen}
+        isLoading={isFetching}
+      />
+    </>
   )
 }
