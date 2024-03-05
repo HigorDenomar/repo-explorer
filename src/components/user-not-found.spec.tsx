@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker'
-import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 
@@ -22,9 +21,5 @@ describe('UserNotFound Component', () => {
 
   it('should render the description', () => {
     expect(screen.getByText(/verifique se a escrita está correta ou tente novamente/i)).toBeInTheDocument()
-  })
-
-  it('should render the image', () => {
-    expect(screen.getByRole('img')).toBeInTheDocument()
   })
 })

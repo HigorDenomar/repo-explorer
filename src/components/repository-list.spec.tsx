@@ -1,7 +1,5 @@
 import { faker } from '@faker-js/faker'
-import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import 'intersection-observer'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import type { Repository } from '../types/github'
