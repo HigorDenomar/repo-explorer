@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { redirect, useParams } from 'react-router-dom';
 
 import { RepositoryList } from '../components/repository-list';
 import { UserSkeleton } from '../components/skeletons/user-skeleton';
 import { UserCard } from '../components/user-card';
+import { UserNotFound } from '../components/user-not-found';
 import { useUserQuery } from '../hooks/useUserQuery';
 import { cls } from '../lib/utils';
 import { useUserStore } from '../store/user';
 
 export function UserPage() {
   const { username } = useParams<{ username: string }>()
-  const { isRefetching } = useUserQuery({ username })
+  const { isRefetching, isError } = useUserQuery({ username })
 
   const { user } = useUserStore()
 
@@ -19,6 +20,13 @@ export function UserPage() {
       isLoading: !isRefetching
     })
   }, [])
+
+  if (!username) {
+    redirect('/');
+    return
+  }
+
+  if (isError) return <UserNotFound term={username} />
 
   return (
     <main className={cls([

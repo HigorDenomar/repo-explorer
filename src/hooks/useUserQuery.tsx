@@ -1,5 +1,4 @@
 import { useQuery } from 'react-query'
-import { useNavigate } from 'react-router-dom'
 import { UserService } from '../services/user.service'
 import { useUserStore } from '../store/user'
 
@@ -8,7 +7,6 @@ type UseUserQueryProps = {
 }
 
 export function useUserQuery({ username }: UseUserQueryProps) {
-  const navigate = useNavigate()
 
   return useQuery({
     queryKey: ['user', username],
@@ -18,9 +16,6 @@ export function useUserQuery({ username }: UseUserQueryProps) {
     },
     onSuccess(data) {
       useUserStore.setState({ user: data })
-    },
-    onError() {
-      navigate('/')
     },
     onSettled() {
       useUserStore.setState({ isLoading: false })
