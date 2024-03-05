@@ -2,11 +2,14 @@ import { HiOutlineHeart } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 
 import { SearchForm } from './search-form';
+import { ToggleTheme } from './toggle-theme';
 
 export function Header() {
 
   return (
-    <header className='sticky inset-0 z-10 bg-white flex justify-between min-h-20 border-b'>
+    <header className='sticky inset-0 z-10 bg-white dark:bg-black flex justify-between min-h-20 border-b pl-4'>
+      <ToggleTheme />
+
       <SearchForm />
 
       <Link

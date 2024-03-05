@@ -33,14 +33,14 @@ export function SearchForm() {
     <>
       <div
         onClick={() => setInputOpen(true)}
-        className="flex items-center border cursor-text rounded px-4 my-5 mx-6 h-10 w-full max-w-2xl"
+        className="flex items-center border cursor-text rounded px-4 my-5 mx-4 h-10 w-full max-w-2xl"
         data-testid='search-input'
       >
         <p className='text-gray-500 text-sm mr-auto'>
           {search ? search : (isLoading || isFetching) ? 'Buscando...' : 'Buscar usuário'}
         </p>
 
-        <kbd className="pointer-events-none ml-1 inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+        <kbd className="hidden pointer-events-none ml-1 md:inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
           <span className="text-xs">⌘</span>K
         </kbd>
 
