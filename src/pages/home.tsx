@@ -1,7 +1,9 @@
-import findUserImg from '../assets/find-user.svg'
-import { UserNotFound } from '../components/user-not-found'
-import { useSearchStore } from '../store/search'
-import { useUserStore } from '../store/user'
+import { Player } from '@lottiefiles/react-lottie-player';
+
+import findUserJson from '../assets/find-user.json';
+import { UserNotFound } from '../components/user-not-found';
+import { useSearchStore } from '../store/search';
+import { useUserStore } from '../store/user';
 
 export function HomePage() {
   const { search } = useSearchStore()
@@ -17,7 +19,12 @@ export function HomePage() {
 
       <p className='mb-12'>Encontre os repositórios de algum usuário digitando no campo acima</p>
 
-      <img src={findUserImg} alt="Ilustração de uma mulher procurando algo em uma página web" className='dark:hidden' />
+      <Player
+        autoplay={true}
+        loop={true}
+        src={findUserJson}
+        style={{ height: '300px', width: '300px' }}
+      ></Player>
     </main>
   )
 }
