@@ -27,7 +27,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
         <a
           href={repository.html_url}
           target='_blank'
-          className='font-semibold text-lg dark:text-white'
+          className='font-semibold text-lg dark:text-white [overflow-wrap:anywhere]'
         >
           {repository.name}
         </a>
