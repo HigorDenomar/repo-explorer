@@ -1,5 +1,5 @@
 import { HiOutlineHeart } from 'react-icons/hi'
-import { cls, formatDate } from '../lib/utils'
+import { cn, formatDate } from '../lib/utils'
 import { useFavoriteStore } from '../store/favorite'
 import type { Repository } from '../types/github'
 
@@ -53,7 +53,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
 
       <button
         type='button'
-        className={cls(
+        className={cn(
           'border bg-gray-100 dark:bg-gray-800 rounded-full min-h-10 min-w-10 flex items-center justify-center transition-colors', {
           'border-primary text-primary bg-transparent': isFavorite,
           'dark:text-gray-500 dark:hover:text-white': !isFavorite,
@@ -64,7 +64,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
       >
         <HiOutlineHeart
           size={18}
-          className={cls({ 'fill-primary': isFavorite })}
+          className={cn({ 'fill-primary': isFavorite })}
         />
       </button>
     </li>
