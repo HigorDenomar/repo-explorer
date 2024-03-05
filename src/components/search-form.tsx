@@ -33,10 +33,10 @@ export function SearchForm() {
     <>
       <div
         onClick={() => setInputOpen(true)}
-        className="flex items-center border cursor-text rounded px-4 my-5 mx-4 h-10 w-full max-w-2xl"
+        className="flex items-center self-center border cursor-text rounded px-2 sm:px-4 h-10 w-full max-w-2xl"
         data-testid='search-input'
       >
-        <p className='text-gray-500 text-sm mr-auto'>
+        <p className='text-gray-500 text-xs mr-auto sm:text-sm'>
           {search ? search : (isLoading || isFetching) ? 'Buscando...' : 'Buscar usuário'}
         </p>
 
@@ -44,11 +44,11 @@ export function SearchForm() {
           <span className="text-xs">⌘</span>K
         </kbd>
 
-        <div aria-label='search-icon' className='pl-3 text-gray-500'>
+        <div aria-label='search-icon' className='pl-1 sm:pl-3 text-gray-500'>
           {isFetching ? (
             <ImSpinner2 size={20} className='animate-spin' />
           ) : (
-            <IoSearch size={24} strokeWidth={20} />
+            <IoSearch className='text-lg sm:text-2xl' strokeWidth={20} />
           )}
         </div>
       </div>
