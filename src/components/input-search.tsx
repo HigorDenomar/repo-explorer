@@ -38,6 +38,11 @@ export function InputSearch({ open, setOpen, onSelect, onChange, value, options,
     return () => document.removeEventListener("keydown", down)
   }, [])
 
+  function navigateTo(to: string) {
+    setOpen(false)
+    navigate(to)
+  }
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen} shouldFilter={false}>
       <CommandInput
@@ -63,11 +68,11 @@ export function InputSearch({ open, setOpen, onSelect, onChange, value, options,
         ) : null}
 
         <CommandGroup heading="Navegação">
-          <CommandItem onSelect={() => navigate('/')}>
+          <CommandItem onSelect={() => navigateTo('/')}>
             <HomeIcon className="mr-2 h-4 w-4" />
             <span>Home</span>
           </CommandItem>
-          <CommandItem onSelect={() => navigate('/favoritos')}>
+          <CommandItem onSelect={() => navigateTo('/favoritos')}>
             <HeartIcon className="mr-2 h-4 w-4" />
             <span>Favoritos</span>
           </CommandItem>

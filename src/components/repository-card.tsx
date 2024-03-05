@@ -1,5 +1,5 @@
 import { HiOutlineHeart } from 'react-icons/hi'
-import { cls, formatDate } from '../lib/utils'
+import { cn, formatDate } from '../lib/utils'
 import { useFavoriteStore } from '../store/favorite'
 import type { Repository } from '../types/github'
 
@@ -27,16 +27,16 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
         <a
           href={repository.html_url}
           target='_blank'
-          className='font-semibold text-lg'
+          className='font-semibold text-lg dark:text-white'
         >
           {repository.name}
         </a>
 
         {repository.description ? (
-          <p className='text-gray-500 text-sm mt-1'>{repository.description}</p>
+          <p className='text-gray-500 dark:text-gray-300 text-sm mt-1'>{repository.description}</p>
         ) : null}
 
-        <div className='flex gap-6 mt-4 text-xs'>
+        <div className='flex gap-6 mt-4 text-xs dark:text-white'>
           {repository.language ? (
             <span className='tech' datatype={repository.language}>{repository.language}</span>
           ) : null}
@@ -53,9 +53,10 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
 
       <button
         type='button'
-        className={cls(
-          'border bg-gray-100 rounded-full min-h-10 min-w-10 flex items-center justify-center', {
-          'border-primary text-primary bg-transparent': isFavorite
+        className={cn(
+          'border bg-gray-100 dark:bg-gray-800 rounded-full min-h-10 min-w-10 flex items-center justify-center transition-colors', {
+          'border-primary text-primary bg-transparent': isFavorite,
+          'dark:text-gray-500 dark:hover:text-white': !isFavorite,
         })}
         onClick={handleToFavoriteRepository}
         aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
@@ -63,7 +64,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
       >
         <HiOutlineHeart
           size={18}
-          className={cls({ 'fill-primary': isFavorite })}
+          className={cn({ 'fill-primary': isFavorite })}
         />
       </button>
     </li>

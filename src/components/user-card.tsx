@@ -7,7 +7,7 @@ export function UserCard() {
 
   return (
     <aside className='relative' data-testid='user-card'>
-      <div className='md:sticky md:inset-28 flex flex-col items-center text-center h-max col-span-1 border rounded gap-6 px-8 py-10 text-gray-700 text-sm'>
+      <div className='md:sticky md:inset-28 flex flex-col items-center text-center h-max col-span-1 border rounded gap-6 px-8 py-10 text-gray-700 dark:text-white text-sm'>
         <img
           src={user.avatar_url}
           alt={`Imagem de perfil de ${user.login}`}
