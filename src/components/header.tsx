@@ -14,7 +14,7 @@ export function Header() {
 
       <Link
         to='/favoritos'
-        className='flex items-center justify-center gap-2 bg-primary px-3 sm:px-6 text-white text-sm font-medium'
+        className='flex items-center justify-center gap-2 bg-primary px-3 sm:px-6 text-white hover:contrast-125 transition-all text-sm font-medium'
       >
         <HiOutlineHeart size={24} />
 

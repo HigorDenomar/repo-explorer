@@ -27,7 +27,7 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
         <a
           href={repository.html_url}
           target='_blank'
-          className='font-semibold text-lg dark:text-white [overflow-wrap:anywhere]'
+          className='font-semibold text-lg dark:text-white hover:text-primary dark:hover:text-primary transition-colors [overflow-wrap:anywhere]'
         >
           {repository.name}
         </a>
@@ -54,9 +54,9 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
       <button
         type='button'
         className={cn(
-          'border bg-gray-100 dark:bg-gray-800 rounded-full min-h-10 min-w-10 flex items-center justify-center transition-colors', {
-          'border-primary text-primary bg-transparent': isFavorite,
-          'dark:text-gray-500 dark:hover:text-white': !isFavorite,
+          'group border hover:text-white rounded-full min-h-10 min-w-10 flex items-center justify-center transition-colors', {
+          'border-primary text-primary bg-transparent hover:bg-primary dark:hover:text-slate-950': isFavorite,
+          'text-gray-400 hover:text-primary dark:text-gray-500 dark:hover:text-slate-200 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-slate-700 hover:border-primary dark:hover:border-transparent': !isFavorite,
         })}
         onClick={handleToFavoriteRepository}
         aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
@@ -64,7 +64,10 @@ export function RepositoryCard({ repository }: RepositoryCardProps) {
       >
         <HiOutlineHeart
           size={18}
-          className={cn({ 'fill-primary': isFavorite })}
+          className={cn({
+            'fill-primary group-hover:fill-primary dark:group-hover:fill-slate-950': isFavorite,
+            'group-hover:fill-primary dark:group-hover:fill-transparent': !isFavorite
+          })}
         />
       </button>
     </li>
